@@ -132,8 +132,7 @@ def fits_to_csv():
         naxis2 = hdulist[0].header['naxis2']
         naxis3 = hdulist[0].header['naxis3']
 
-    print 'Ejes (naxis) => X = ', naxis1, ' Y = ', naxis2, ' Z = ', naxis3
-
+    print 'Ejes(naxis) => X = ', naxis1, ' Y = ', naxis2, ' Z = ', naxis3
     archi = open('csvfits.csv', 'a')
     salida = ''
 
