@@ -19,24 +19,24 @@ namespace ConsoleApplication2 {
 
             /*Lectura parcial y automatica de parte de cabezera*/
 
-             /*Fits f = new Fits("cubo_ing_comp.fits");
+            /*Fits f = new Fits("cubo_ing_comp.fits");
 
-             BasicHDU[] hdus = f.Read();
+            BasicHDU[] hdus = f.Read();
 
-             Console.WriteLine("Longitud: " + hdus.Length);
+            Console.WriteLine("Longitud: " + hdus.Length);
 
-             for (int i = 0; i < hdus.Length; i += 1) {
-                 hdus[i].Info();
-             }
+            for (int i = 0; i < hdus.Length; i += 1) {
+                hdus[i].Info();
+            }
 
-            f.Close();*/
+           f.Close();*/
 
             /*Lectura mayor y manual de parte de cabezera*/
 
             /*BufferedFile bf = new BufferedFile("cubo_ing_comp.fits", FileAccess.Read,FileShare.None);
             Header h = Header.ReadHeader(bf);
-
-            long n = h.DataSize;
+            Console.WriteLine(h.GetCard(155)); //Obtener las propiedades des header numericamente
+            Console.WriteLine("HEADER SIZE: "+h.DataSize);
 
             Console.WriteLine("SIMPLE: " + h.GetBooleanValue("SIMPLE"));
             Console.WriteLine("BITPIX: " + h.GetIntValue("BITPIX"));
@@ -83,17 +83,86 @@ namespace ConsoleApplication2 {
             bf.Close();*/
 
             /*Lectura imagen en matriz*/
-            
+
             Fits f = new Fits("cubo_ing_comp.fits");
+
+            ImageHDU hdu = (ImageHDU)f.GetHDU(0);
+
+
             ImageHDU h = (ImageHDU)f.ReadHDU();
 
-            ImageTiler t = h.Tiler;
+            try {
 
+                Console.WriteLine("Estoy aqui");
+                // float[,,] img = (float[,,])h.Kernel;
+                //float[,,] img = (float[,,])hdu.Kernel;
+
+                float[] img = (float[])hdu.Kernel;
+
+                Console.WriteLine("valor:"+img[10]);
+                
+               // Console.WriteLine("datos imagen"+img[15, 20, 10]);
+                Console.WriteLine("Estoy aca");
+            } catch (NullReferenceException e) {
+                e.GetBaseException();
+            }
+
+            int[,,] threeDimensional = new int[3, 5, 4];
+            threeDimensional[0, 0, 0] = 1;
+            threeDimensional[0, 1, 0] = 2;
+            threeDimensional[0, 2, 0] = 3;
+            threeDimensional[0, 3, 0] = 4;
+            threeDimensional[0, 4, 0] = 5;
+            threeDimensional[1, 1, 1] = 2;
+            threeDimensional[2, 2, 2] = 3;
+            threeDimensional[2, 2, 3] = 4;
+
+            // Loop over each dimension's length.
+            for (int i = 0; i < threeDimensional.GetLength(2); i++) {
+                for (int y = 0; y < threeDimensional.GetLength(1); y++) {
+                    for (int x = 0; x < threeDimensional.GetLength(0); x++) {
+                        Console.Write(threeDimensional[x, y, i]);
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
+
+            /*BasicHDU bs = f.GetHDU(0);
+
+            Data datos = bs.Data;
+
+            float[,,] cubo = (Data) datos.DataArray;
+
+
+            hdu.Data;
+           
+            ImageTiler tiler = hdu.Tiler;
             float[] tile = new float[50 * 50];
-            t.GetTile(tile, new int[] { 100, 100 }, new int[] { 40, 40 });
+
+            try {
+                tiler.GetTile(tile, new int[] { 200, 200 }, new int[] { 50, 50 });
+            } catch (IndexOutOfRangeException e) {
+                Console.WriteLine(e.GetBaseException());
+                Console.WriteLine("Mensaje de error: "+e.Message);
+            }
+           */
+
+
+            //ImageHDU h = (ImageHDU)f.ReadHDU();
+            
+            ImageData image = new ImageData(f);
+            float[][][] foto = (float[][][]) image.DataArray;
+
+            Console.WriteLine("foto = "+foto[0][0][0]);
+            // h.Info();
+            //f.GetHDU(0);
+            //ImageTiler t = h.Tiler;
+
+            /*float[] tile = new float[50 * 50];
+            t.GetTile(tile, new int[] { 100, 100 }, new int[] { 40, 40 });*/
 
             Console.ReadKey();
-
         }
     }
 }
