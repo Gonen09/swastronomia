@@ -1,7 +1,7 @@
 from astropy.io import fits
 import matplotlib.pyplot as plt
 import numpy as np
-import csv
+import math as mt
 
 
 def array_test():
@@ -18,17 +18,19 @@ def array_test():
     print pixel
 
 
-def crear_csv():
-    pixel = []
-    pixel.append(3)
-    pixel.append(8)
-    pixel.append(9)
-    pixel.append(2)
+def array_opetions():
 
-    outfile = open('csvfits.csv', "wb")
-    writer = csv.writer(outfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL)
-    datos = '10,20:30:40:50;20:80:70:45'
-    writer.writerow([datos])
+    pixel = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    print pixel
+
+    vector = [x * 3 for x in pixel]
+
+    print vector
+
+    salida = [mt.sqrt(x) for x in vector]
+
+    print salida
 
 
 def info_fits(cubo_fits):
@@ -154,14 +156,16 @@ def crear_archivo(nombre):
 
 
 def main():
+
     """
-    astrofits ='cubo_ing_comp.fits'
+    astrofits = 'cubo_ing_comp.fits'
     info_fits(astrofits)
-    fits_z = pixel_fits(astrofits,0,0)
-    print  fits_z
+    fits_z = pixel_fits(astrofits, 0, 0)
+    print fits_z
     graficar(fits_z)
     estadistica(fits_z)
     """
-    fits_to_csv()
+
+    array_opetions()
 
 main()

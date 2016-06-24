@@ -1,0 +1,7 @@
+C:\Users\Usuario\documents\visual studio 2015\Projects\Astronomia\ConsoleApplication2\bin\Debug\ConsoleApplication2.exe.config
+C:\Users\Usuario\documents\visual studio 2015\Projects\Astronomia\ConsoleApplication2\obj\Debug\ConsoleApplication2.exe
+C:\Users\Usuario\documents\visual studio 2015\Projects\Astronomia\ConsoleApplication2\obj\Debug\ConsoleApplication2.pdb
+C:\Users\Usuario\documents\visual studio 2015\Projects\Astronomia\ConsoleApplication2\obj\Debug\swfits.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\documents\visual studio 2015\Projects\Astronomia\ConsoleApplication2\bin\Debug\ConsoleApplication2.exe
+C:\Users\Usuario\documents\visual studio 2015\Projects\Astronomia\ConsoleApplication2\bin\Debug\ConsoleApplication2.pdb
+C:\Users\Usuario\documents\visual studio 2015\Projects\Astronomia\ConsoleApplication2\bin\Debug\CSharpFITS_v1.1.dll
