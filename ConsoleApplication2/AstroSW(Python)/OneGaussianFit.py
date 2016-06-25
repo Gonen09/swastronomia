@@ -11,6 +11,7 @@ mean = sum(x*y)/n                   #note this correction
 suma = sum(y*z)
 sigma = sum(y*(x-mean)**2)/n        #note this correction
 
+
 def gaus(x,a,x0,sigma):
     return a*exp(-(x-x0)**2/(2*sigma**2))
 
