@@ -7,6 +7,7 @@ from copy import deepcopy
 # Constantes definidas por el astronomo
 GANANCIA = 2.1
 RUIDO = 4
+TOLERANCIA_RUIDO = 3
 
 
 def info_fits(nombre_archivo):
@@ -52,11 +53,6 @@ def info_fits(nombre_archivo):
     hdulist.close()
 
 
-def pixel_fits(cubo, pixel_x, pixel_y):
-    vector = deepcopy(cubo[:, pixel_y, pixel_x])
-    return vector
-
-
 def graficar_z(datos):
 
     plt.plot(datos)
@@ -67,6 +63,7 @@ def graficar_z(datos):
 
 
 def graficar_vs(dato1, dato2):
+
     plt.plot(dato1)
     plt.plot(dato2)
     plt.title('Eje Z')
@@ -98,6 +95,7 @@ def crear_archivo(nombre):
 
 
 def fits_to_csv():
+
     # Inicializar variables
 
     crear_archivo('csvfits.csv')
@@ -140,6 +138,12 @@ def fits_to_csv():
 
     hdulist.close()
     archi.close()
+
+
+def pixel_fits(cubo, pixel_x, pixel_y):
+
+    vector = deepcopy(cubo[:, pixel_y, pixel_x])
+    return vector
 
 
 def pixel_electron(vector):
@@ -209,19 +213,50 @@ def pixel_normalizar(vector):
     return arreglo
 
 
-def cubo_electron(cubo, dim_x, dim_y):
+def transformar_cubo(cubo, dim_x, dim_y):
 
-    print cubo, dim_x, dim_y
+    dim_x -= 1
+    dim_y -= 1
+
+    for x in range(0, dim_x, 1):
+        for y in range(0, dim_y, 1):
+
+            # print 'Coordenada [', x, ',', y, ']'
+            vector = pixel_fits(cubo, x, y)
+
+            # print "Pixel original"
+            # print vector
+            # print
+            vector = pixel_electron(vector)
+            # print "Pixel electrico"
+            # print vector
+            # print
+            # vector = pixel_quitar_ruido(vector)
+            # print "Pixel sin ruido"
+            # print vector
+            # print
+            # vector = pixel_normalizar(vector)
+            # print "Pixel normalizado"
+            # print vector
+            # print
+
+            plt.plot(vector)
+
+            cubo[:, dim_y, dim_x] = deepcopy(vector)
+
+            # print 'cubo'
+            # print cubo[:, dim_y, dim_x]
+            # print
+            vector = []
+            # print vector
 
 
-def cubo_quitar_ruido(cubo, dim_x, dim_y):
+    plt.title('Eje Z')
+    plt.ylabel('Intensidad')
+    plt.xlabel('Longitud de onda')
+    plt.show()
 
-    print cubo, dim_x, dim_y
-
-
-def cubo_normalizar(cubo, dim_x, dim_y):
-
-    print cubo, dim_x, dim_y
+    return cubo
 
 
 def fits_test():
@@ -278,6 +313,16 @@ def main():
     naxis1 = hdulist[0].header['naxis1']  # Dimension X
     naxis2 = hdulist[0].header['naxis2']  # Dimension y
     naxis3 = hdulist[0].header['naxis3']  # Dimension z
+
+    print 'inicio'
+
+    cubo = transformar_cubo(cubo, naxis1, naxis2)
+
+    print 'fin'
+
+    # vector = pixel_fits(cubo, 150, 150)
+    # print vector
+    # graficar_z(vector)
 
     fits_test()
 

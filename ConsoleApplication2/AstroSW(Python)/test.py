@@ -5,6 +5,7 @@ import math as mt
 
 
 def array_test():
+
     pixel = []
     pixel.append(3)
     pixel.append(8)
@@ -12,9 +13,7 @@ def array_test():
     pixel.append(2)
 
     print pixel
-
     del pixel[:]
-
     print pixel
 
 
@@ -107,6 +106,7 @@ def estadistica(datos):
 
 
 def fits_to_csv():
+
     # Inicializar variables
 
     crear_archivo('csvfits.csv')
@@ -156,15 +156,6 @@ def crear_archivo(nombre):
 
 
 def main():
-
-    """
-    astrofits = 'cubo_ing_comp.fits'
-    info_fits(astrofits)
-    fits_z = pixel_fits(astrofits, 0, 0)
-    print fits_z
-    graficar(fits_z)
-    estadistica(fits_z)
-    """
 
     array_opetions()
 
